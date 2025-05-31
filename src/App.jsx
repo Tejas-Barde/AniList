@@ -3,6 +3,8 @@ import './App.css'
 import { useForm } from 'react-hook-form';
 import Home from './components/Home';
 import { Outlet } from 'react-router-dom';
+import Header from './components/header/Header';
+import { Footer } from './components/footer/Footer';
 
 function App() {
   return (

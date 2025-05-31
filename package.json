@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@material-tailwind/react": "^2.1.10",
     "@reduxjs/toolkit": "^2.8.1",
     "@tailwindcss/vite": "^4.1.6",
     "@tinymce/tinymce-react": "^6.1.0",
