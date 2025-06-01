@@ -1,13 +1,16 @@
-import Logo from '../Logo'
-import Button from '../Button'
+import Logo from './Logo'
+import Button from './Button'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { FaBars, FaSearch, FaDiscord, FaTelegramPlane, FaRedditAlien, FaTwitter } from 'react-icons/fa'
+import { useSelector } from 'react-redux'
+import LogOutBtn from './LogOutBtn'
 
-function Header() {
+function HeaderComponent() {
 	const { register, handleSubmit } = useForm()
 	const navigate = useNavigate()
-	
+	const authStatus = useSelector(state=>state.auth.status)
+	console.log(authStatus)
 	const submit = async (input) => {
 		navigate(`/search/${input.name}`)
 	}
@@ -57,13 +60,16 @@ function Header() {
 					<span>📰 News</span>
 					<span>💬 Community</span> */}
 				</div>
-
-				<Button className="bg-pink-400 text-black px-3 py-1 rounded-md">
-					Login
-				</Button>
+				{!authStatus ? (<Link to='/login'>
+					<Button className="bg-blue-400 text-black px-3 py-1 rounded-md">
+						Login
+					</Button>
+				</Link>)
+				:
+				(<LogOutBtn></LogOutBtn>)}
 			</div>
 		</header>
 	)
 }
 
-export default Header
+export default HeaderComponent

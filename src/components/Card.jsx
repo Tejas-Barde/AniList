@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, useParams } from 'react-router-dom'
 
 function Card({anime}){
-  console.log(anime)
+  // console.log(anime)
   return (
     <div className="flex gap-5 w-80 h-[214px] bg-gray-900 text-white p-2 rounded-md items-stretch">
       <div className='w-full h-full'>

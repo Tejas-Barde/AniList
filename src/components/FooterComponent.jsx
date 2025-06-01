@@ -1,6 +1,6 @@
 import { Typography } from "@material-tailwind/react";
  
-export function Footer() {
+function FooterComponent() {
   return (
     <footer className="w-full bg-gray-900 text-white p-4 mt-4">
       <div className="flex flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 text-center md:justify-between">
@@ -55,3 +55,5 @@ export function Footer() {
     </footer>
   );
 }
+
+export default FooterComponent
