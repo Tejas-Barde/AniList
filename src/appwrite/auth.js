@@ -5,7 +5,7 @@ class Authentication{
     client = new Client()
     account
 
-    Authentication(){
+    constructor(){
         this.client
             .setEndpoint(config.appwriteUrl)
             .setProject(config.projectId)
@@ -14,25 +14,33 @@ class Authentication{
 
     async signUp({name,email,password}){
         try {
-            const userAccount = await this.account.create(
+            const userAccount = this.account.create(
                 ID.unique(),
                 email,
                 password,
                 name
-            )
+            ).then((response)=>{
+                console.log(response)
+            })
+            return userAccount;
         } catch (error) {
             console.log(`Auth :: sign Up :: ${error}`)
+            throw error;
         }
     }
     
     async login({email,password}){
         try {
-            return await this.account.createEmailPasswordSession(
+            console.log(email)
+            const result = await this.account.createEmailPasswordSession(
                 email,
                 password
             )
+            console.log(result);
+            return result;
         } catch (error) {
             console.log(`Auth :: Login :: ${error}`)
+            return null;
         }
     }
 

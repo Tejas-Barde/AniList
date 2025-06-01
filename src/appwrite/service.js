@@ -6,7 +6,7 @@ class Service{
     storage;
     database;
 
-    Service(){
+    constructor(){
         this.client = new Client()
         .setEndpoint(config.appwriteUrl)
         .setProject(config.projectId)
