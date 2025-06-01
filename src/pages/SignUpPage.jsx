@@ -1,12 +1,12 @@
 import React from 'react'
-import Login from '../components/Login'
+import SignUp from '../components/SignUp'
 
-function LoginPage() {
+function SignUpPage() {
   return (
     <div className='bg-[url(src/assets/anime_background.png)] h-full bg-cover'>
-      <Login/>      
+      <SignUp/>
     </div>
   )
 }
 
-export default LoginPage
+export default SignUpPage
