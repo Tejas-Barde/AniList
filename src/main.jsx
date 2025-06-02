@@ -10,6 +10,7 @@ import store from './store/store'
 import LoginPage from './pages/LoginPage.jsx'
 import AuthLayout from './components/AuthLayout.jsx'
 import SignUpPage from './pages/SignUpPage.jsx'
+import UserPage from './pages/UserPage.jsx'
 
 
 const router = createBrowserRouter([
@@ -36,6 +37,12 @@ const router = createBrowserRouter([
         element: <AuthLayout authentication = {false}>
                     <SignUpPage />
                   </AuthLayout>
+      },
+      {
+        path: "/userpage",
+        element:<AuthLayout authentication = {true}>
+          <UserPage></UserPage>
+        </AuthLayout>
       }
     ]
   }

@@ -6,8 +6,8 @@ import { useEffect, useState } from 'react';
 import auth from './appwrite/auth';
 import { useDispatch } from 'react-redux';
 import { login, logout } from './store/authSlice';
-import { BiLogoGit } from 'react-icons/bi';
-
+import service from './appwrite/service';
+import { fillUserList } from './store/animeSlice';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -16,8 +16,16 @@ function App() {
   useEffect(()=>{
     try {
       auth.getUser()
-        .then(response=>{
-          if(response) dispatch(login(response));
+        .then(async (user)=>{
+          if(user){
+            dispatch(login(user));
+            const response = await service.getAnimeList({userId : user.$id})
+            // console.log(`App :: Promise ::`)
+            // console.log(promise)
+            console.log(`App :: Promise :: response `)
+            console.log(response)
+            dispatch(fillUserList(response))
+          }
           else dispatch(logout());
         })
         .finally(()=>{
@@ -31,7 +39,7 @@ function App() {
   return loading ? (<div>Loading</div>) : (
     <div className='h-full w-full bg-blue-950'>
       <HeaderComponent/>
-      <main className='w-full h-full'>
+      <main className='w-full min-h-screen max-h-fit'>
         <Outlet/>
       </main>
       <FooterComponent/>
