@@ -27,6 +27,7 @@ class Authentication{
             console.log(`Auth :: sign Up :: ${error}`)
             throw error;
         }
+        
     }
     
     async login({email,password}){
