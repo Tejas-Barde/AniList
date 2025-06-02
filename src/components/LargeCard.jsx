@@ -1,11 +1,14 @@
 import React from 'react';
 import Button from './Button';
+import AddAnimeBtn from './AddAnimeBtn';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 
 function LargeCard({ anime }) {
-  console.log(`inside large card - anime - ${anime}`);
-  console.log(anime);
-
+  // console.log(`inside large card - anime - ${anime}`);
+  // console.log(anime);
+  const authStatus = useSelector(state=>state.auth.status)
   return (
     <div className="flex flex-wrap  bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-xl shadow-xl p-6 gap-6  m-8 h-fit">
       <div className="w-48 flex-shrink-0">
@@ -42,9 +45,19 @@ function LargeCard({ anime }) {
           >
             ▶ Watch now
           </a>
-          <Button className="bg-white text-black font-semibold py-2 px-4 rounded hover:bg-gray-200">
-            + Add to List
-          </Button>
+          {
+            authStatus?
+            (<AddAnimeBtn className="bg-white text-black font-semibold py-2 px-4 rounded hover:bg-gray-200" anime={anime}>
+              + Add to List
+            </AddAnimeBtn>)
+            :(
+              <Link to='/login'>
+                <Button className="bg-white text-black font-semibold py-2 px-4 rounded hover:bg-gray-200">
+                  + Add to List
+                </Button>
+              </Link> 
+            )
+          }
         </div>
       </div>
       <div className='h-full flex flex-col align-middle items-center'>

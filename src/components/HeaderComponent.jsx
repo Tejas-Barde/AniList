@@ -50,6 +50,11 @@ function HeaderComponent() {
 					{/* <span className="flex items-center gap-1">
 						📡 Watch2gether
 					</span> */}
+					<span >
+						<Link to='userpage'>
+							AnimeList
+						</Link>
+					</span>
 					<span className="flex items-center gap-1">
 						🔀 Random
 					</span>

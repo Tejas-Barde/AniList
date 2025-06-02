@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form'
 import Button from './Button'
 import auth from '../appwrite/auth'
 import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { login, logout } from '../store/authSlice'
 import { useState } from 'react'
 import Logo from './Logo'
@@ -20,7 +20,13 @@ function Login() {
       const session = await auth.login({email : input.email,password : input.password})
       if (session) {
         const userData = await auth.getUser()
-        if (userData) dispatch(login(userData))
+        console.log(`Login :: userData :: ${userData} `)
+        console.log(userData)
+        if (userData){
+          dispatch(login(userData))
+          console.log(`Login :: Inside Userdata if`)
+          console.log(userData.$id)
+        }
         navigate('/')
       }
     } catch (error) {
