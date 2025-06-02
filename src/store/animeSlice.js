@@ -15,9 +15,13 @@ const animeSlice = createSlice({
         },
         fillUserList:(state,action)=>{
             state.userList = action.payload
+        },
+        addToUserList(state,action){
+            state.userList.push(action.payload)
         }
+
     }
 })
 
-export const {fillTrendingList,fillUserList} = animeSlice.actions;
+export const {fillTrendingList,fillUserList,addToUserList} = animeSlice.actions;
 export default animeSlice.reducer; 
