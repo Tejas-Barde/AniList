@@ -7,13 +7,14 @@ import { addToUserList } from '../store/animeSlice'
 function AddAnimeBtn({ children, anime, ...props }) {
   const [isAdded, setIsAdded] = useState(false)
   const [showPopup, setShowPopup] = useState(false)
-  const [status, setStatus] = useState("Ongoing")
+  const [status, setStatus] = useState("Watching")
   const [rating, setRating] = useState(7.7)
   const userData = useSelector(state => state.auth.userData)
   const dispatch = useDispatch()
-
+  
   const addAnime = async () => {
     try {
+      setShowPopup(false)
       const compactAnime = {
         anime_id: anime.mal_id,
         image_url: anime.images.jpg.image_url,
@@ -23,12 +24,10 @@ function AddAnimeBtn({ children, anime, ...props }) {
         rating: rating,
         status: status
       }
-
+      setIsAdded(true)
       const res = await service.addAnime({anime:compactAnime,userId:userData.$id})
       console.log(`AddAnime Btn :: response :: ${res}`)
-      dispatch(addToUserList([compactAnime]))
-      setIsAdded(true)
-      setShowPopup(false)
+      dispatch(addToUserList(compactAnime))
     } catch (error) {
       console.error("AddAnimeBtn :: Error", error)
     }
@@ -51,7 +50,7 @@ function AddAnimeBtn({ children, anime, ...props }) {
               className="w-full p-2 mb-4 border rounded"
             >
               <option>Completed</option>
-              <option>Ongoing</option>
+              <option>Watching</option>
               <option>Plan to Watch</option>
               <option>On Hold</option>
               <option>Dropped</option>

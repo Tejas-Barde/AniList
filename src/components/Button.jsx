@@ -1,4 +1,3 @@
-import React from 'react'
 
 function Button({
   children=null,  
@@ -6,7 +5,7 @@ function Button({
   ...props
 }) {
   return (
-    <button className={`${className}`} {...props}>
+    <button className={`${className} cursor-pointer`} {...props}>
       {children}
     </button>
   )

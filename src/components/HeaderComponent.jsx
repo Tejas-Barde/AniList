@@ -39,31 +39,12 @@ function HeaderComponent() {
 			</form>
 
 			<div className="flex items-center gap-4 text-sm">
-				{/* <div className="flex items-center gap-2">
-					<FaDiscord className="w-6 h-6 text-indigo-300 bg-gray-800 p-1 rounded-full" />
-					<FaTelegramPlane className="w-6 h-6 text-sky-400 bg-gray-800 p-1 rounded-full" />
-					<FaRedditAlien className="w-6 h-6 text-red-500 bg-gray-800 p-1 rounded-full" />
-					<FaTwitter className="w-6 h-6 text-sky-500 bg-gray-800 p-1 rounded-full" />
-				</div> */}
-
 				<div className="flex items-center gap-4">
-					{/* <span className="flex items-center gap-1">
-						📡 Watch2gether
-					</span> */}
 					<span >
 						<Link to='userpage'>
 							AnimeList
 						</Link>
 					</span>
-					<span className="flex items-center gap-1">
-						🔀 Random
-					</span>
-					{/* <span className="flex items-center gap-1">
-						<code className="bg-pink-400 text-black px-1 rounded">EN</code>
-						<code className="bg-gray-700 text-white px-1 rounded">JP</code>
-					</span>
-					<span>📰 News</span>
-					<span>💬 Community</span> */}
 				</div>
 				{!authStatus ? (<Link to='/login'>
 					<Button className="bg-blue-400 text-black px-3 py-1 rounded-md">

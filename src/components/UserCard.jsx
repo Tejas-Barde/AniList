@@ -1,8 +1,8 @@
 import React from 'react'
 
 function UserCard({anime}) {
-  // console.log(`UserCard :: Anime`)
-  // console.log(anime)
+  console.log(`UserCard :: Anime`)
+  console.log(anime)
   return (
     <div className="flex gap-5 w-80 h-[214px] bg-gray-900 text-white p-2 rounded-md items-stretch">
       <div className='w-full h-full'>

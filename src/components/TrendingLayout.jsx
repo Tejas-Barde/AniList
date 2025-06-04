@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fillTrendingList } from '../store/animeSlice'
+import Loader from './Loader';
 
 function TrendingLayout({ children }) {
     const [loading, setLoading] = useState(true);
@@ -32,7 +33,7 @@ function TrendingLayout({ children }) {
     }, [trendingList])
 
     return loading ? (
-        <div className='h-screen w-screen bg-red-400 text-black'>Loading</div>
+        <div className='h-screen w-screen bg-blue-400 text-black'><Loader></Loader></div>
     ) : (
         <>{children}</>
     );
