@@ -1,90 +1,79 @@
 import { useForm } from 'react-hook-form'
-import Button from './Button'
-import auth from '../appwrite/auth'
 import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { login, logout } from '../store/authSlice'
+import { useDispatch } from 'react-redux'
+import { login } from '../store/authSlice'
 import { useState } from 'react'
-import Logo from './Logo'
-
+import auth from '../appwrite/auth'
+import { FaUser, FaLock } from 'react-icons/fa'
 
 function Login() {
   const { handleSubmit, register } = useForm()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const [error, setError] = useState("");
+  const [error, setError] = useState("")
+
   const submit = async (input) => {
-    console.log(input)
     setError("")
     try {
-      const session = await auth.login({email : input.email,password : input.password})
+      const session = await auth.login({ email: input.email, password: input.password })
       if (session) {
         const userData = await auth.getUser()
-        console.log(`Login :: userData :: ${userData} `)
-        console.log(userData)
-        if (userData){
+        if (userData) {
           dispatch(login(userData))
-          console.log(`Login :: Inside Userdata if`)
-          console.log(userData.$id)
+          navigate('/')
         }
-        navigate('/')
       }
     } catch (error) {
-      setError(error);
+      setError("Login failed. Please try again.")
     }
   }
-  return (
-    <div className='max-w-200 flex flex-col items-center'>
-      <div className="mb-2 flex justify-center">
-        <span className="inline-block w-full max-w-[100px]">
-          <Logo />
-        </span>
-      </div>
-      <h2 className="text-center text-2xl font-bold leading-tight">Sign in to your account</h2>
-      <p className="mt-2 text-center text-base text-black/60">
-        Don&apos;t have any account?&nbsp;
-        <Link
-          to="/signup"
-          className="font-medium text-primary transition-all duration-200 hover:underline"
-        >
-          Sign Up
-        </Link>
-      </p>
-      {error && <div>Login Failed Try Again Error - {error}</div>}
-      <form onSubmit={handleSubmit(submit)} className="flex flex-col gap-4">
-        <label className="flex flex-row gap-5 text-sm font-medium flex-wrap">
-          <p>Name</p>
-          <input
-            type="text"
-            placeholder="Enter Your Name"
-            {...register("name", { required: true })}
-            className="border px-2 py-1 rounded"
-          />
-        </label>
 
-        <label className="flex flex-col text-sm font-medium">
-          Email
+  return (
+    <div className="bg-white/10 backdrop-blur-md p-8 rounded-xl shadow-xl max-w-sm w-full text-white">
+      <h2 className="text-3xl font-bold text-center mb-6">Login</h2>
+
+      <form onSubmit={handleSubmit(submit)} className="flex flex-col gap-4">
+
+        <div className="relative">
+          <FaUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-300" />
           <input
             type="email"
-            placeholder="Enter Your Email"
+            placeholder="Username"
             {...register("email", { required: true })}
-            className="border px-2 py-1 rounded"
+            className="w-full pl-10 pr-3 py-2 rounded-full bg-white/20 placeholder-white/80 text-white focus:outline-none"
           />
-        </label>
+        </div>
 
-        <label className="flex flex-col text-sm font-medium">
-          Re-enter Password
+        <div className="relative">
+          <FaLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-300" />
           <input
             type="password"
-            placeholder="Enter Password "
+            placeholder="Password"
             {...register("password", { required: true })}
-            className="border px-2 py-1 rounded"
+            className="w-full pl-10 pr-3 py-2 rounded-full bg-white/20 placeholder-white/80 text-white focus:outline-none"
           />
-        </label>
+        </div>
 
-        <Button type="submit" className="mt-2 bg-blue-500 text-white py-1 px-3 rounded">
+        <div className="flex justify-between text-sm text-white/80">
+          <label className="flex items-center gap-1">
+            <input type="checkbox" className="accent-white" />
+            Remember me
+          </label>
+          <span className="hover:underline cursor-pointer">Forgot password?</span>
+        </div>
+
+        {error && <p className="text-red-300 text-sm">{error}</p>}
+
+        <button type="submit" className="bg-white text-purple-700 font-bold py-2 rounded-full hover:bg-purple-200 transition">
           Login
-        </Button>
+        </button>
+
+        <p className="text-center text-sm text-white/80">
+          Don’t have an account?&nbsp;
+          <Link to="/signup" className="text-white font-semibold hover:underline">
+            Register
+          </Link>
+        </p>
       </form>
     </div>
   )
