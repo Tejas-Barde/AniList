@@ -1,5 +1,5 @@
 import './App.css'
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import HeaderComponent from './components/HeaderComponent'
 import FooterComponent from './components/FooterComponent'
 import { useEffect, useState } from 'react';
@@ -8,11 +8,14 @@ import { useDispatch } from 'react-redux';
 import { login, logout } from './store/authSlice';
 import service from './appwrite/service';
 import { fillUserList } from './store/animeSlice';
+import Loader from './components/Loader';
 
 function App() {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
-  
+  const location = useLocation()
+  const hiddenLayout = ['/login','/signup']
+  const hidden = hiddenLayout.includes(location.pathname)
   useEffect(()=>{
     try {
       auth.getUser()
@@ -36,13 +39,13 @@ function App() {
     } 
   },[])  
 
-  return loading ? (<div>Loading</div>) : (
+  return loading ? (<Loader/>) : (
     <div className='h-full w-full bg-blue-950'>
-      <HeaderComponent/>
+      {!hidden && <HeaderComponent/>}
       <main className='w-full min-h-screen max-h-fit'>
         <Outlet/>
       </main>
-      <FooterComponent/>
+      {!hidden && <FooterComponent/>}
     </div>
   )
 }
