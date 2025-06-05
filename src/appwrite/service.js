@@ -76,14 +76,14 @@ class Service {
           );
           return {
             ...anime,
-            rating:doc.rating,
-            status:doc.status
+            rating: doc.rating,
+            status: doc.status
           }
         } catch (error) {
           console.log(`service :: getAnimeList :: Promise all :: ${error}`)
         }
       }))
-      return animeList.filter(anime=> anime !== null);
+      return animeList.filter(anime => anime !== null);
       // console.log(`service :: getAnimeList :: response ::`)
       // console.log(response)
     } catch (error) {
@@ -92,49 +92,71 @@ class Service {
     }
   }
 
-  async update({ userId, animeId, rating, status }) {
+  async update({ userId, anime_id,rating,status}) {
     try {
-      const result = this.getAnimeList(userId, [
-        Query.equal('animeId', animeId)
-      ])
+      console.log(`service :: update :: userId: ${userId}, anime_id: ${anime_id}, rating: ${rating}, status: ${status}`);
+      // Check if the document exists
+      const result = await this.database.listDocuments(
+        config.databaseId,
+        config.collectionId,
+        [
+          Query.equal('userId', userId),
+          Query.equal('anime_id', anime_id)
+        ]
+      );
       if (result.documents.length > 0) {
+        console.log(`service :: update :: found document for userId: ${userId}, anime_id: ${anime_id}`);
         const docId = result.documents[0].$id
-        await this.database.deleteDocument(
+        await this.database.updateDocument(
           config.databaseId,
           config.collectionId,
           docId,
           {
-            "rating": rating,
+            "rating": rating, 
             "status": status
           }
         )
       }
       return true
     } catch (error) {
-      console.log(`Error :: get Anime List :: ${error}`)
+      console.log(`Error :: Update :: ${error}`)
       return false
     }
   }
 
-  async removeAnime(userId, animeId) {
+  async removeAnime({ userId, anime_id }) {
+    console.log(`service :: removeAnime :: userId: ${userId}, anime_id: ${anime_id}`);
     try {
-      const result = this.getAnimeList(userId, [
-        Query.equal('animeId', animeId)
-      ])
+      const result = await this.database.listDocuments(
+        config.databaseId,
+        config.collectionId,
+        [
+          Query.equal('userId', userId),
+          Query.equal('anime_id', anime_id)
+        ]
+      );
+
       if (result.documents.length > 0) {
-        const docId = result.documents[0].$id
+        const docId = result.documents[0].$id;
+
         await this.database.deleteDocument(
           config.databaseId,
           config.collectionId,
           docId
-        )
+        );
+
+        console.log(`service :: removeAnime :: successfully deleted document ${docId}`);
+      } else {
+        console.log(`service :: removeAnime :: no matching document found`);
       }
-      return true
+
+      return true;
     } catch (error) {
-      console.log(`Error :: get Anime List :: ${error}`)
-      return false
+      console.log(`Error :: removeAnime :: ${error}`);
+      return false;
     }
   }
+
 }
 
 const service = new Service();
