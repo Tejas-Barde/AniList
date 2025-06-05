@@ -12,10 +12,11 @@ function SearchPage() {
     const fetchAnime = async () => {
       if (!slug) return;
       try {
+        // setAnimeList([])
         const response = await fetch(`https://api.jikan.moe/v4/anime?q=${encodeURIComponent(slug)}`);
         const json = await response.json();
         setAnimeList(json.data);
-        setLoading(false); 
+        setLoading(false);
       } catch (error) {
         console.log(`search Page :: fetchAnime`, error);
       }
@@ -26,10 +27,26 @@ function SearchPage() {
   return loading ? (
     <div className='w-screen bg-red-900 text-white h-screen'>Loading</div>
   ) : (
-    <div className="flex flex-col gap-4 w-full">
+    <div className="flex flex-col gap-4 w-full mb-4">
       {animeList.length > 0 && <LargeCard anime={animeList[0]} />}
-      <h1 className='w-full'>Related Search</h1>
-      {animeList.length > 0 && <CardList animeList={animeList.slice(1)} />}
+      {animeList.length > 0 && (
+        <>
+          <div className="flex ml-7 items-center gap-2">
+            <div className="w-1 h-6 bg-red-500 rounded-sm" />
+            <h1 className="text-xl md:text-2xl font-bold text-amber-100 uppercase tracking-wide">Related Search</h1>
+          </div>
+          <CardList animeList={animeList.slice(1)} />
+        </>
+      )}
+      {animeList.length === 0 && (
+        <>
+          <div className='bg-[url("/src/assets/bennbechman.jpg")] bg-cover bg-center h-screen w-full flex items-center justify-center'>
+            <div className="flex items-center gap-2">
+              <h1 className="text-xl md:text-2xl font-bold text-white uppercase tracking-wide">Type Properly</h1>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

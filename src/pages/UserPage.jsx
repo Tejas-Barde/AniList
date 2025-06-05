@@ -1,11 +1,39 @@
 import { useSelector } from "react-redux";
 import CardList from "../components/CardList";
 import { Heart } from "lucide-react";
+import { useNavigate, useParams } from "react-router-dom";
 
 function UserPage() {
   const userList = useSelector(state => state.anime.userList);
   const userData = useSelector(state => state.auth.userData);
-  console
+  const {slug} = useParams()
+  const navigate = useNavigate()
+  const navStatus = [
+    {
+      name: "All",
+      to: "/userpage/all"
+    },
+    {
+      name: "Watching",
+      to: "/userpage/watching",
+    },
+    {
+      name: "On-Hold",
+      to: "/userpage/on-hold",
+    },
+    {
+      name: "Plan to Watch",
+      to: "/userpage/plan to watch"
+    },
+    {
+      name: "Dropped",
+      to: "/userpage/dropped"
+    },
+    {
+      name: "Completed",
+      to: "/userpage/completed"
+    }
+  ]
   return (
     <div className="min-h-screen bg-[#1b1836] text-white py-8">
       <div className="flex justify-center text-4xl w-full">
@@ -30,18 +58,21 @@ function UserPage() {
           {/* <div className="flex items-center space-x-2">
             <span className="font-medium">Public</span>
             <button className="bg-gray-600 text-white rounded-full px-3 py-1 text-xs">OFF</button>
-            </div> */}  
+            </div> */}
         </div>
-          <div className="flex gap-2 flex-wrap mb-6 w-full justify-center">
-            {["All", "Watching", "On-Hold", "Plan to Watch", "Dropped", "Completed"].map((status, idx) => (
-              <button key={idx} className={`px-4 py-1 rounded bg-gray-700 text-white text-sm ${status === "All" ? "bg-pink-400 text-black" : ""}`}>
-                {status}
-              </button>
-            ))}
-          </div>
-
-
-        <CardList animeList={userList} userCard={true} />
+        <div className="flex gap-2 flex-wrap mb-6 w-full justify-center">
+          {navStatus.map((status, idx) => (
+            <button
+              onClick={() => navigate(status.to)}
+              key={idx}
+              className={`px-4 py-1 cursor-pointer rounded bg-gray-700 text-white text-sm hover:bg-gray-600 transition-colors 
+              ${slug === status.name.toLowerCase() ? 'bg-pink-500' : ''}`}
+            >
+              {status.name}
+            </button>
+          ))}
+        </div>
+        <CardList animeList={userList} userCard={true} status={slug}/>
       </div>
     </div>
   );
