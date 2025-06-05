@@ -1,32 +1,28 @@
-import React, { useEffect, useState } from 'react'
 import Card from './Card';
 import { useSelector } from 'react-redux';
 import UserCard from './UserCard';
+import { Link } from 'react-router-dom';
 
-function CardList({ animeList = null, userCard = false }) {
-  console.log(`CardList :: `)
-  console.log(animeList)
-  if(animeList === null) animeList = useSelector((state) => state.anime.trendingList)
+function CardList({ animeList = null, userCard = false, status = "all" }) {
+  if (animeList === null) animeList = useSelector((state) => state.anime.trendingList);
+  console.log(`CardList :: status :: ${status}`);
   return (
-    <ul className='flex gap-8  flex-wrap justify-center-safe w-full'>
-      {animeList && (
-        animeList.map((anime,index) => (
+    <ul className="flex gap-6 flex-wrap justify-center w-full">
+      {animeList.map((anime, index) => (
           <li key={index}>
-          {userCard ?
+            {userCard ?
+              (status === 'all' || anime.status.toLowerCase() === status) &&
               (
-                <UserCard
-                  anime={anime}
-                />
-              ) :
-              (<Card
-                anime={anime}
-              />)
-            }
+                <UserCard anime={anime} index={index} />
+              ) : (
+                <Link to={`/search/${anime.title}`}>
+                  <Card anime={anime} />
+                </Link>
+              )}
           </li>
-        ))
-      )}
+      ))}
     </ul>
-  )
+  );
 }
 
 export default CardList

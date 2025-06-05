@@ -6,16 +6,25 @@ import TrendingLayout from './TrendingLayout';
 import { useDispatch, useSelector } from 'react-redux';
 
 function Home() {
-  console.log(`just before calling trending`)
   return (
-    <div className='flex flex-col gap-4 h-full'>
-      <h1 className='font-bold'>#Trending</h1>
+    <div className="flex flex-col gap-4 h-full px-6 py-4 text-white font-['Poppins']">
+      <div className="flex justify-between items-center">
+        <div className="flex items-center gap-2">
+          <div className="w-1 h-6 bg-red-500 rounded-sm" />
+          <h1 className="text-xl md:text-2xl font-bold uppercase tracking-wide">Trending Now</h1>
+        </div>
+        {/* <a href="#" className="text-sm text-blue-400 hover:underline flex items-center gap-1">
+          View All <span className="text-lg">→</span>
+        </a> */}
+      </div>
+      
       <TrendingLayout>
-        <CardList/>
+        <CardList />
       </TrendingLayout>
     </div>
-  )
+  );
 }
+
 
 export default Home;
 

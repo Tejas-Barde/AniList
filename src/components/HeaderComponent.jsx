@@ -17,12 +17,14 @@ function HeaderComponent() {
 
 	return (
 		<header className="h-20 flex flex-wrap items-center justify-between bg-gray-900 text-white w-full pl-5 pr-5">
+			<Link to='/'>
 			<div className="flex items-center gap-4">
 				<Logo></Logo>
 				<div className="flex items-center gap-1 font-bold text-xl">
 					<h1 className="text-white">Mug<span className="text-pink-400">!</span>wara</h1>
 				</div>
 			</div>
+			</Link>
 
 			<form onSubmit={handleSubmit(submit)} className=" flex bg-white rounded w-[300px] overflow-hidden ">
 				<input

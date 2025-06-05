@@ -1,14 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from './Button';
 import AddAnimeBtn from './AddAnimeBtn';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import RemoveAnimeBtn from './RemoveAnimeBtn';
 
 
 function LargeCard({ anime }) {
   // console.log(`inside large card - anime - ${anime}`);
   // console.log(anime);
-  const authStatus = useSelector(state=>state.auth.status)
+  const authStatus = useSelector(state => state.auth.status)
+  const userList = useSelector(state => state.anime.userList)
+  const [isAdded, setIsAdded] = useState(false);
+  
+  useEffect(() => {
+    if (userList && userList.length > 0 && anime?.mal_id) {
+      const exists = userList.some(item => item.anime_id === anime.mal_id || item.anime_id === anime.anime_id);
+      setIsAdded(exists);
+    } else {
+      setIsAdded(false);
+    }
+  }, [userList, anime]);
+
   return (
     <div className="flex flex-wrap  bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-xl shadow-xl p-6 gap-6  m-8 h-fit">
       <div className="w-48 flex-shrink-0">
@@ -46,17 +59,22 @@ function LargeCard({ anime }) {
             ▶ Watch now
           </a>
           {
-            authStatus?
-            (<AddAnimeBtn className="bg-white text-black font-semibold py-2 px-4 rounded hover:bg-gray-200" anime={anime}>
-              + Add to List
-            </AddAnimeBtn>)
-            :(
-              <Link to='/login'>
-                <Button className="bg-white text-black font-semibold py-2 px-4 rounded hover:bg-gray-200">
-                  + Add to List
-                </Button>
-              </Link> 
-            )
+            authStatus ?
+              !isAdded ?
+                  (<AddAnimeBtn className="bg-white text-black font-semibold py-2 px-4 rounded hover:bg-gray-200" anime={anime} isAdded={isAdded}>
+                    + Add to List
+                  </AddAnimeBtn>) 
+                :
+                  (<RemoveAnimeBtn className="bg-white text-black font-semibold py-2 px-4 rounded hover:bg-gray-200" anime={anime} setIsAdded={setIsAdded}>
+                    Remove
+                  </RemoveAnimeBtn>)
+              : (
+                <Link to='/login'>
+                  <Button className="bg-white text-black font-semibold py-2 px-4 rounded hover:bg-gray-200">
+                    + Add to List
+                  </Button>
+                </Link>
+              )
           }
         </div>
       </div>
