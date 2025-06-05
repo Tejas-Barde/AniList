@@ -28,21 +28,27 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <AuthLayout authentication = {false}>
-                    <LoginPage />
-                  </AuthLayout>
+        element: <AuthLayout authentication={false}>
+          <LoginPage />
+        </AuthLayout>
       },
       {
         path: "/signup",
-        element: <AuthLayout authentication = {false}>
-                    <SignUpPage />
-                  </AuthLayout>
+        element: <AuthLayout authentication={false}>
+          <SignUpPage />
+        </AuthLayout>
       },
       {
         path: "/userpage",
-        element:<AuthLayout authentication = {true}>
+        element: <AuthLayout authentication={true}>
           <UserPage></UserPage>
         </AuthLayout>
+      },
+      {
+        path: "/userpage/:slug",
+        element: <AuthLayout authentication={true}>
+                  <UserPage></UserPage>
+                </AuthLayout>
       }
     ]
   }
