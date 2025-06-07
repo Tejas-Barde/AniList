@@ -16,6 +16,7 @@ function TrendingLayout({ children }) {
                     const response = await fetch(`https://api.jikan.moe/v4/top/anime`);
                     const json = await response.json();
                     dispatch(fillTrendingList(json.data));
+                    console.log(`home Page :: fetchAnime`, json.data);
                 } catch (error) {
                     console.log(`home Page :: fetchAnime`, error);
                 }
