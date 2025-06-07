@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { FaBars, FaSearch, FaDiscord, FaTelegramPlane, FaRedditAlien, FaTwitter } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
 import LogOutBtn from './LogOutBtn'
+import { useEffect, useState } from 'react'
 
 function HeaderComponent() {
 	const { register, handleSubmit } = useForm()
@@ -14,10 +15,23 @@ function HeaderComponent() {
 	const submit = async (input) => {
 		navigate(`/search/${input.name}`)
 	}
+	const [scrolled, setScrolled] = useState(false)
+
+useEffect(() => {
+	const handleScroll = () => {
+		setScrolled(window.scrollY > 10)
+	}
+
+	window.addEventListener('scroll', handleScroll)
+	return () => window.removeEventListener('scroll', handleScroll)
+}, [])
 
 	return (
-		<header className="h-20 flex flex-wrap items-center justify-between bg-gray-900 text-white w-full pl-5 pr-5">
-			<Link to='/'>
+		<header className={`h-20 flex flex-wrap items-center justify-between w-full pl-5 pr-5 text-white fixed top-0 z-50 transition-all duration-300
+  ${scrolled ? 'bg-gray-900/90 backdrop-blur-md' : 'bg-transparent'}
+`}>
+
+	<Link to='/'>
 			<div className="flex items-center gap-4">
 				<Logo></Logo>
 				<div className="flex items-center gap-1 font-bold text-xl">
