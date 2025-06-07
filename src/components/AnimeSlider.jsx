@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Play } from 'lucide-react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const AnimeSlider = ({ 
   autoPlay = true, 
@@ -191,6 +192,9 @@ const AnimeSlider = ({
                   <Play className={`fill-white ${isMobile ? 'w-4 h-4' : 'w-5 h-5'}`} />
                   Watch Now
                 </button>
+                <Link>
+                
+                </Link>
                 <button 
                   onClick={() => handleDetailClick(currentAnime)}
                   className={`flex items-center gap-2 bg-gray-700/80 hover:bg-gray-600/80 border border-gray-600 rounded-full font-semibold text-white transition-all duration-200 ${
