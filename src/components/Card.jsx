@@ -1,50 +1,73 @@
-import React from 'react'
-import { Link, useParams } from 'react-router-dom'
+import React, { useRef, useEffect, useState } from 'react';
 
-function Card({anime}){
+function Card({ anime }) {
+  const imageRef = useRef(null);
+  const [imgWidth, setImgWidth] = useState(100);
+
+  useEffect(() => {
+    if (imageRef.current) {
+      setImgWidth(imageRef.current.offsetWidth);
+    }
+  }, []);
+
   return (
-    <div className="flex gap-5 w-80 h-[214px] bg-gray-900 text-white p-2 rounded-md items-stretch">
-      <div className='w-full h-full'>
-        <img className='w-auto h-full ' src={anime.images.jpg.image_url} alt="image" />
+    <div
+      className="flex h-fit bg-[#1c1c1e] rounded-xl text-white shadow-md overflow-hidden p-2"
+      style={{  width: `305px` }}
+    >
+      <div className="flex-shrink-0 h-fit">
+        <img
+          ref={imageRef}
+          src={anime.images.jpg.image_url}
+          alt={anime.title}
+          className="h-[200px] w-auto max-w-[130px] rounded-md object-cover"
+        />
       </div>
-      <div className="w-full flex flex-col gap-2 justify-between align-middle text-[10px]">
-        <div className="flex gap-2 items-start align-baseline">
-          <span className="bg-gray-600 px-2 py-0.5 rounded-full text-white">{anime.status}</span>
-          <small className='text-xs'>Ep {anime.episodes}</small>
-        </div>
-        <div className='flex min-h-[3.5em] items-center'>
-        <p className="font-bold text-[1.5em]  line-clamp-2">{anime.title}</p>
 
+      <div className="flex flex-col justify-between pl-3 py-1 w-full text-sm">
+        <div className="flex justify-between text-[11px] text-gray-300">
+          <span className="bg-gray-700 px-2 py-[2px] rounded-full">{anime.status}</span>
+          <span>{anime.episodes} Eps</span>
         </div>
 
-        <div className="flex justify-between items-center">
-          <div className="flex items-center gap-1">
-            <svg viewBox="0 0 24 24" className="w-3 h-3 fill-yellow-400" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 17.75l-6.172 3.245l1.179-6.873l-5-4.867l6.9-1l3.086-6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
-            </svg>
-            <span>{anime.score}</span>
+       <h2 className="text-[15px] font-semibold leading-tight mt-1 line-clamp-2">
+          {anime.title}
+        </h2>
+
+        <div className="flex justify-between text-[13px] mt-1 text-gray-200">
+          <div className="flex flex-col items-center gap-1">
+            <span className="flex font-medium">
+              <svg viewBox="0 0 24 24" className="w-[14px] h-[14px] fill-yellow-400" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 17.75l-6.172 3.245l1.179-6.873l-5-4.867l6.9-1l3.086-6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
+              </svg>
+              {anime.score}
+            </span>
+            <div className="text-[11px] text-gray-400">{anime.scored_by}</div>
           </div>
-          <small className='text-xs'>{anime.scored_by}</small>
-        </div>
-
-        <div className="flex justify-between items-center text-gray-300">
-          <div className="flex items-center gap-1">
-            <svg viewBox="0 0 24 24" className="w-3 h-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none">
-              <path d="M5 9h14M5 15h14M11 4l-4 16M17 4l-4 16" />
-            </svg>
-            <span>{anime.rank}</span>
+          <div className='flex flex-col items-center gap-1'>
+            <span>#{anime.rank}</span>
+            <span>Ranking</span>
           </div>
-          <small>{anime.scored_by}</small>
         </div>
 
-        <div className="flex gap-1 flex-wrap">
-          {anime.genres.slice(0,2).map((genre)=>(
-            <span className='border-1 border-solid bg-auto border-sky-800 rounded p-1.5' key={genre.mal_id}>{genre.name}</span>
+        <div className="flex flex-wrap gap-2 mt-1 text-[11px]">
+          {anime.genres.slice(0, 2).map((genre,index=1) => (
+            <span
+              key={genre.mal_id || index}
+              className="bg-[#2f2f33] px-2 py-[2px] rounded-md"
+            >
+              {(genre.name == 'Adventure')? genre.name.substring(0, 5) + '...' : genre.name}
+            </span>
           ))}
+          {anime.genres.length > 2 && (
+            <span className="bg-[#2f2f33] px-2 py-[2px] rounded-md">
+              +{anime.genres.length - 2}
+            </span>
+          )}
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Card
+export default Card;
