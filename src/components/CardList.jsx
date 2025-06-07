@@ -7,7 +7,7 @@ function CardList({ animeList = null, userCard = false, status = "all" }) {
   if (animeList === null) animeList = useSelector((state) => state.anime.trendingList);
   console.log(`CardList :: status :: ${status}`);
   return (
-    <ul className="flex gap-6 flex-wrap justify-center w-full">
+    <ul className="flex p-6 gap-x-12 gap-4 flex-wrap start-left w-full">
       {animeList.map((anime, index) => (
           <li key={index}>
             {userCard ?
