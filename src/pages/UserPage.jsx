@@ -35,7 +35,7 @@ function UserPage() {
     }
   ]
   return (
-    <div className="min-h-screen bg-[#1b1836] text-white py-8">
+    <div className="pt-20 min-h-screen bg-[#1b1836] text-white">
       <div className="flex justify-center text-4xl w-full">
         <h1 className="font-bold">Hi, {userData?.name}</h1>
       </div>
