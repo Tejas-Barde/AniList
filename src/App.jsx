@@ -40,7 +40,7 @@ function App() {
   },[])  
 
   return loading ? (<Loader/>) : (
-    <div className='h-full w-full bg-blue-950'>
+    <div className='h-full w-full bg-gradient-to-br from-[#1b1836] to-[#131127]'>
       {!hidden && <HeaderComponent/>}
       <main className='w-full min-h-screen max-h-fit'>
         <Outlet/>
