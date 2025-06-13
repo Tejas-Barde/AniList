@@ -1,9 +1,9 @@
 import React from 'react'
 import { BeatLoader } from 'react-spinners'
 
-function Loader() {
+function Loader({className,...props}) {
   return (
-    <div className='flex flex-col items-center justify-center h-screen w-screen'>
+    <div className={`flex flex-col items-center text-amber-100 justify-center h-screen w-screen ${className}`} {...props}>
       <h1>Loading</h1>
       <BeatLoader
       />
