@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Home = () => {
-  const trendingList = useSelector(state=>state.anime.trendingList);
   const navigate = useNavigate();
   const handleWatchClick = (anime) => {
     console.log('Watch clicked for:', anime.title);
