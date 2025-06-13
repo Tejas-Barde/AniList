@@ -11,7 +11,7 @@ function HeaderComponent() {
 	const { register, handleSubmit } = useForm()
 	const navigate = useNavigate()
 	const authStatus = useSelector(state=>state.auth.status)
-	console.log(authStatus)
+	// console.log(authStatus)
 	const submit = async (input) => {
 		navigate(`/search/${input.name}`)
 	}
