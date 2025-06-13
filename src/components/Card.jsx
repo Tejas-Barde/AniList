@@ -12,7 +12,7 @@ function Card({ anime }) {
 
   return (
     <div
-      className="flex h-fit bg-[#1c1c1e] rounded-xl text-white shadow-md overflow-hidden p-2"
+      className="flex h-fit border-gray-800 border-[0.1px] rounded-xl text-white shadow-md overflow-hidden p-2"
       style={{  width: `305px` }}
     >
       <div className="flex-shrink-0 h-fit">
