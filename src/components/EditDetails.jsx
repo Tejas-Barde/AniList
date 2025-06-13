@@ -10,7 +10,7 @@ function EditDetails({ anime, onClose }) {
   const [showPopup, setShowPopup] = useState(true)
   const userData = useSelector(state => state.auth.userData)
   const dispatch = useDispatch()
-  console.log(`EditDetails :: anime :: ${anime}`)
+  // console.log(`EditDetails :: anime :: ${anime}`)
   const update = async ({ rating, status }) => {
     console.log(`EditDetails :: update :: anime id :: ${anime.anime_id}, rating :: ${rating}, status :: ${status}`)
     setShowPopup(false)
