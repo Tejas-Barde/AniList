@@ -6,6 +6,8 @@ import { useNavigate, useParams } from "react-router-dom";
 function UserPage() {
   const userList = useSelector(state => state.anime.userList);
   const userData = useSelector(state => state.auth.userData);
+  
+  
   const {slug} = useParams()
   const navigate = useNavigate()
   const navStatus = [
@@ -35,7 +37,7 @@ function UserPage() {
     }
   ]
   return (
-    <div className="pt-20 min-h-screen bg-[#1b1836] text-white">
+    <div className="pt-20 min-h-screen text-white">
       <div className="flex justify-center text-4xl w-full">
         <h1 className="font-bold">Hi, {userData?.name}</h1>
       </div>
@@ -50,7 +52,7 @@ function UserPage() {
         </nav>
       </div> */}
 
-      <div className="px-8 py-6">
+      <div className="sm:px-[5%] md:px-8 py-6">
         <div className="flex items-center justify-center mb-4">
           <h2 className="text-3xl font-bold flex items-center gap-2">
             <Heart className="text-pink-400 w-6 h-6" /> Anime List
