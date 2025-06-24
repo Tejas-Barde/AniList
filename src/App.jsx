@@ -4,7 +4,7 @@ import HeaderComponent from './components/HeaderComponent'
 import FooterComponent from './components/FooterComponent'
 import { useEffect, useState } from 'react';
 import auth from './appwrite/auth';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login, logout } from './store/authSlice';
 import service from './appwrite/service';
 import { fillUserList } from './store/animeSlice';
@@ -14,38 +14,49 @@ function App() {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const location = useLocation()
-  const hiddenLayout = ['/login','/signup']
+  const hiddenLayout = ['/login', '/signup']
   const hidden = hiddenLayout.includes(location.pathname)
-  useEffect(()=>{
+  const userData = useSelector(state => state.auth.userData)
+  useEffect(() => {
+
     try {
       auth.getUser()
-        .then(async (user)=>{
-          if(user){
-            dispatch(login(user));
-            const response = await service.getAnimeList({userId : user.$id})
-            // console.log(`App :: Promise ::`)
-            // console.log(promise)
-            console.log(`App :: Promise :: response `)
-            console.log(response)
-            dispatch(fillUserList(response))
-          }
+        .then(async (user) => {
+          if (user) dispatch(login(user));
           else dispatch(logout());
         })
-        .finally(()=>{
+        .finally(() => {
           setLoading(false)
         })
     } catch (error) {
       console.log(`App :: ${error}`);
-    } 
-  },[])  
+    }
+  }, [])
 
-  return loading ? (<Loader/>) : (
-    <div className='h-full w-full bg-gradient-to-br from-[#1b1836] to-[#131127]'>
-      {!hidden && <HeaderComponent/>}
+  useEffect(() => {
+    if (!userData || !userData.$id) return;
+
+    const fetchUserList = async () => {
+      try {
+        const response = await service.getAnimeList({ userId: userData.$id });
+        console.log(`App :: Promise :: response `);
+        console.log(response);
+        dispatch(fillUserList(response));
+      } catch (error) {
+        console.error(`App :: Promise :: Error`, error);
+      }
+    };
+
+    fetchUserList();
+  }, [userData]);
+  
+  return loading ? (<Loader />) : (
+    <div className='h-full w-full '>
+      {!hidden && <HeaderComponent />}
       <main className='w-full min-h-screen max-h-fit'>
-        <Outlet/>
+        <Outlet />
       </main>
-      {!hidden && <FooterComponent/>}
+      {!hidden && <FooterComponent />}
     </div>
   )
 }
