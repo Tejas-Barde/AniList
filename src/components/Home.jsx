@@ -40,23 +40,7 @@ const Home = () => {
             </h1>
           </div>
         </div>
-
-        {/* Your existing trending layout would go here */}
-        {/* <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          <div className="bg-gray-800 h-64 rounded-lg flex items-center justify-center">
-            <span className="text-gray-400">Card 1</span>
-          </div>
-          <div className="bg-gray-800 h-64 rounded-lg flex items-center justify-center">
-            <span className="text-gray-400">Card 2</span>
-          </div>
-          <div className="bg-gray-800 h-64 rounded-lg flex items-center justify-center">
-            <span className="text-gray-400">Card 3</span>
-          </div>
-          <div className="bg-gray-800 h-64 rounded-lg flex items-center justify-center">
-            <span className="text-gray-400">Card 4</span>
-          </div>
-        </div> */}
-        <CardList/>
+        <CardList className='justify-around'/>
       </div>
     </div>
   );
