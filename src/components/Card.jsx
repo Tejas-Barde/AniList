@@ -12,9 +12,13 @@ function Card({ anime }) {
 
   return (
     <div
-      className="flex h-fit border-gray-800 border-[0.1px] rounded-xl text-white shadow-md overflow-hidden p-2"
-      style={{  width: `305px` }}
+      className="flex h-fit w-[305px] border border-gray-700 rounded-xl text-white
+            shadow-gray-800/50 shadow-[0_0_10px_rgba(59,130,246,0.5)]
+             hover:border-blue-500 hover:shadow-[0_0_8px_2px_rgba(59,130,246,0.5)] 
+             transition duration-300 ease-in-out overflow-hidden p-2"
     >
+
+
       <div className="flex-shrink-0 h-fit">
         <img
           ref={imageRef}
@@ -30,7 +34,7 @@ function Card({ anime }) {
           <span>{anime.episodes} Eps</span>
         </div>
 
-       <h2 className="text-[15px] font-semibold leading-tight mt-1 line-clamp-2">
+        <h2 className="text-[15px] font-semibold leading-tight mt-1 line-clamp-2">
           {anime.title}
         </h2>
 
@@ -51,12 +55,12 @@ function Card({ anime }) {
         </div>
 
         <div className="flex flex-wrap gap-2 mt-1 text-[11px]">
-          {anime.genres.slice(0, 2).map((genre,index=1) => (
+          {anime.genres.slice(0, 2).map((genre, index = 1) => (
             <span
               key={genre.mal_id || index}
               className="bg-[#2f2f33] px-2 py-[2px] rounded-md"
             >
-              {(genre.name == 'Adventure')? genre.name.substring(0, 5) + '...' : genre.name}
+              {(genre.name == 'Adventure') ? genre.name.substring(0, 5) + '...' : genre.name}
             </span>
           ))}
           {anime.genres.length > 2 && (
