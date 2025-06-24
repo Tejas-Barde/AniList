@@ -28,7 +28,7 @@ function SearchPage() {
   return loading ? (
     <Loader className='text-white'></Loader>
   ) : (
-    <div className="pt-20 flex flex-col gap-4 w-full mb-4">
+    <div className="pt-20 flex flex-col gap-4 w-full mb-4 bg-gradient-to-br from-[#0A121D] via-[#131C2B] to-[#1B2A3C]">
       {animeList.length > 0 && <LargeCard anime={animeList[0]} />}
       {animeList.length > 0 && (
         <div >
