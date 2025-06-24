@@ -2,6 +2,7 @@ import LargeCard from '../components/LargeCard';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import CardList from '../components/CardList';
+import { Loader } from 'lucide-react';
 
 function SearchPage() {
   const { slug } = useParams();
@@ -25,18 +26,18 @@ function SearchPage() {
   }, [slug]);
 
   return loading ? (
-    <div className='w-screen bg-red-900 text-white h-screen'>Loading</div>
+    <Loader className='text-white'></Loader>
   ) : (
-    <div className="pt-12 flex flex-col gap-4 w-full mb-4">
+    <div className="pt-20 flex flex-col gap-4 w-full mb-4">
       {animeList.length > 0 && <LargeCard anime={animeList[0]} />}
       {animeList.length > 0 && (
-        <>
+        <div >
           <div className="flex ml-7 items-center gap-2">
             <div className="w-1 h-6 bg-red-500 rounded-sm" />
             <h1 className="text-xl md:text-2xl font-bold text-amber-100 uppercase tracking-wide">Related Search</h1>
           </div>
-          <CardList animeList={animeList.slice(1)} />
-        </>
+          <CardList animeList={animeList.slice(1)} className='pl-[5em]'/>
+        </div>
       )}
       {animeList.length === 0 && (
         <>
