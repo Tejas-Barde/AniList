@@ -23,9 +23,12 @@ function Login() {
           navigate('/')
         }
       }
-    } catch (error) {
-      setError("Login failed. Please try again.")
+    } catch (err) {
+      const msg = err?.message || "Login failed. Please try again."
+      setError(msg)
+      console.error("Login error:", err)
     }
+
   }
 
   return (
