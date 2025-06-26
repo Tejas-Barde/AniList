@@ -40,7 +40,7 @@ class Authentication {
       return result;
     } catch (error) {
       console.log(`Auth :: Login :: ${error}`)
-      return null;
+      throw error
     }
   }
 
