@@ -100,7 +100,7 @@ function LargeCard({ anime }) {
         </div>
       </div>
 
-      <div className="h-full flex flex-col align-middle items-center px-8 text-sm text-gray-400 mb-3 text-left items-start gap-3">
+      <div className="h-full flex flex-col align-middle px-8 text-sm text-gray-400 mb-3 text-left items-start gap-3">
           {anime?.studios?.length > 0 && (
             <p>
               <span className="font-semibold text-white">Studios:</span>{" "}
