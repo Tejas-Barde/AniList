@@ -31,11 +31,11 @@ const Home = () => {
         />
       </TrendingLayout>
 
-      <div className="px-6 py-8">
+      <div className="">
         <div className="flex justify-between items-center mb-6">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 pl-6 pt-6">
             <div className="w-1 h-6 bg-red-500 rounded-sm" />
-            <h1 className="text-xl md:text-2xl font-bold uppercase tracking-wide">
+            <h1 className="text-xl md:text-2xl font-bold uppercase tracking-wide ">
               Trending Now
             </h1>
           </div>
