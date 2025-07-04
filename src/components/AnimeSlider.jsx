@@ -50,7 +50,7 @@ const AnimeSlider = ({
   if (!currentAnime) return null;
 
   return (
-    <div className="relative w-full h-[600px] overflow-hidden bg-[#201f31]">
+    <div className="relative w-full h-[32em] overflow-hidden bg-[#201f31]">
       {/* Right-side image with gradient fade */}
       <div className="absolute inset-0 flex justify-end">
         <div className="w-full max-w-[800px] h-full relative z-0">
@@ -74,7 +74,7 @@ const AnimeSlider = ({
           )}
 
           {/* Title */}
-          <h1 className={`font-bold leading-tight text-white ${isMobile ? 'text-2xl mb-3' : 'text-4xl lg:text-6xl mb-4'}`}>
+          <h1 className={`font-bold leading-tight text-white ${isMobile ? 'text-2xl mb-3' : 'text-4xl lg:text-4xl mb-4'}`}>
             {currentAnime.title_english || currentAnime.title || 'Untitled'}
           </h1>
 
