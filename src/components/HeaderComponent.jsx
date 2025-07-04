@@ -27,7 +27,7 @@ useEffect(() => {
 }, [])
 
 	return (
-		<header className={`h-20 flex flex-wrap items-center justify-between w-full pl-5 pr-5 text-white fixed top-0 z-50 transition-all duration-300
+		<header className={`h-[4.5rem] flex flex-wrap items-center justify-between w-full pl-5 pr-5 text-white fixed top-0 z-50 transition-all duration-300
   ${scrolled ? 'bg-gray-900/90 backdrop-blur-md' : 'bg-transparent'}
 `}>
 
