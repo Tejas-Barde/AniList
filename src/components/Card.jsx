@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 
-function Card({ anime }) {
+function Card({ anime, compact }) {
   const imageRef = useRef(null);
   const [imgWidth, setImgWidth] = useState(100);
 
@@ -10,15 +10,41 @@ function Card({ anime }) {
     }
   }, []);
 
+  if (compact) {
+    return (
+      <div
+        className="flex flex-col items-center w-full max-w-[150px] hover:scale-[1.05] transition-transform duration-300"
+      >
+        <div className="relative w-full rounded-lg overflow-hidden shadow-lg">
+          <img
+            ref={imageRef}
+            src={anime.images.jpg.image_url}
+            alt={anime.title}
+            className="aspect-[2/3] object-cover w-full rounded-lg"
+          />
+
+          {/* Optional badge (e.g. for age rating or type) */}
+          <span className="absolute top-1 left-1 bg-red-600 text-white text-[10px] px-1 py-[1px] rounded-sm">
+            {anime.type || 'TV'}
+          </span>
+        </div>
+
+        {/* Title below the image */}
+        <h2 className="mt-2 text-center font-semibold text-sm leading-tight line-clamp-2">
+          {anime.title}
+        </h2>
+      </div>
+    );
+  }
+
+
   return (
     <div
-      className="flex h-fit w-[305px] border border-gray-700 rounded-xl text-white
-            shadow-gray-800/50 shadow-[0_0_10px_rgba(59,130,246,0.5)]
-             hover:border-blue-500 hover:shadow-[0_0_8px_2px_rgba(59,130,246,0.5)] 
-             transition duration-300 ease-in-out overflow-hidden p-2"
+      className="flex h-fit w-[322px] border border-gray-700 rounded-xl text-white
+        shadow-gray-800/50 shadow-[0_0_10px_rgba(59,130,246,0.5)]
+        hover:border-blue-500 hover:shadow-[0_0_8px_2px_rgba(59,130,246,0.5)]
+        transition duration-300 ease-in-out overflow-hidden p-2"
     >
-
-
       <div className="flex-shrink-0 h-fit">
         <img
           ref={imageRef}
@@ -34,7 +60,7 @@ function Card({ anime }) {
           <span>{anime.episodes} Eps</span>
         </div>
 
-        <h2 className="text-[15px] font-semibold leading-tight mt-1 line-clamp-2">
+        <h2 className="text-[1.3em] font-semibold leading-tight mt-1 line-clamp-2">
           {anime.title}
         </h2>
 
@@ -54,21 +80,22 @@ function Card({ anime }) {
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-2 mt-1 text-[11px]">
-          {anime.genres.slice(0, 2).map((genre, index = 1) => (
+        <div className="flex flex-wrap gap-2 mt-1 text-[11.5px] font-medium">
+          {anime.genres.slice(0, 2).map((genre, index) => (
             <span
               key={genre.mal_id || index}
-              className="bg-[#2f2f33] px-2 py-[2px] rounded-md"
+              className="bg-gray-700 px-2 py-[2px] rounded-lg max-w-[60px] truncate"
             >
-              {(genre.name == 'Adventure') ? genre.name.substring(0, 5) + '...' : genre.name}
+              {genre.name}
             </span>
           ))}
           {anime.genres.length > 2 && (
-            <span className="bg-[#2f2f33] px-2 py-[2px] rounded-md">
+            <span className="bg-gray-700 px-2 py-[2px] rounded-lg">
               +{anime.genres.length - 2}
             </span>
           )}
         </div>
+
       </div>
     </div>
   );
