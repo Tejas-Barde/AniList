@@ -1,4 +1,4 @@
-import { Client, Account, ID } from "appwrite";
+import { Client, Account, ID, OAuthProvider } from "appwrite";
 import config from '../configuration/config'
 
 class Authentication {
@@ -58,6 +58,16 @@ class Authentication {
       return await this.account.deleteSession('current')
     } catch (error) {
       console.log(`Auth :: LogOut :: ${error}`)
+    }
+  }
+
+  async loginOAuth(){
+    try {
+      this.account.createOAuth2Session(
+        OAuthProvider.Google,
+      )
+    } catch (error) {
+      console.log(`Auth :: loginOAuth :: ${error}`);
     }
   }
 }
