@@ -11,6 +11,15 @@ function CardList({ animeList = null, className = "", userCard = false, status =
   const [containerWidth, setContainerWidth] = useState(0);
   const [isCompact, setIsCompact] = useState(false);
 
+  const filterGenre = (genres)=>{
+    for(let i = 0;i<genres.length;i++){
+      const genre = genres[i]
+      if(genre.name === "Hentai") return true;
+    }
+    return false;
+    // if genre contains "Hentai" return true
+  }
+
   useEffect(() => {
     const updateWidth = () => {
       if (containerRef.current) {
@@ -44,6 +53,7 @@ function CardList({ animeList = null, className = "", userCard = false, status =
     ? 'repeat(auto-fill, minmax(150px, 1fr))'
     : 'repeat(auto-fill, minmax(322px, 1fr))';
 
+  
   return (
     <ul
       ref={containerRef}
@@ -51,6 +61,7 @@ function CardList({ animeList = null, className = "", userCard = false, status =
       style={{ gridTemplateColumns: gridTemplate }}
     >
       {animeList.map((anime, index) => {
+        if(filterGenre(anime.genres)) return <></>
         if (userCard) {
           if (status === 'all' || status === anime.status?.toLowerCase()) {
             return (
